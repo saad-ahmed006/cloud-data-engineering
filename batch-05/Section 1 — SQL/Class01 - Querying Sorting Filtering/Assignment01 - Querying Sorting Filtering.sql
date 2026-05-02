@@ -15,7 +15,13 @@
 
 -- Write your query below:
 
-
+select 
+first_name,
+last_name,
+city,
+phone 
+from sales.customers
+where state='CA' and phone is not null
 
 
 -- ============================================================
@@ -29,6 +35,13 @@
 -- Write your query below:
 
 
+select 
+product_id, 
+product_name, 
+model_year,
+list_price from production.products
+order by model_year desc, list_price asc;
+
 
 
 -- ============================================================
@@ -41,11 +54,19 @@
 -- ============================================================
 
 -- Part a:
-
+select 
+TOP 5 
+product_name, 
+list_price 
+from production.products 
+order by list_price desc 
 
 -- Part b:
 
-
+select top 5 percent *
+from production.products
+order by list_price asc;
+-- 17 rows
 
 
 -- ============================================================
@@ -59,14 +80,23 @@
 -- ============================================================
 
 -- Page 1:
-
+select product_name, list_price
+from production.products
+order by list_price desc
+OFFSET 0 rows fetch next 10 rows only;
 
 -- Page 2:
-
+select product_name, list_price
+from production.products
+order by list_price desc
+OFFSET 10 rows fetch next 10 rows only;
 
 -- Page 3:
 
-
+select product_name, list_price
+from production.products
+order by list_price desc
+OFFSET 20 rows fetch next 10 rows only;
 
 
 -- ============================================================
@@ -81,14 +111,23 @@
 -- ============================================================
 
 -- Part a:
-
-
+select distinct state  
+from sales.customers
+order by state asc;
 -- Part b:
-
+select 
+distinct state,
+city 
+from sales.customers 
+order by state asc,
+city asc
 
 -- Part c:
 
-
+select 
+distinct 
+model_year 
+from production.products
 
 
 -- ============================================================
@@ -103,3 +142,13 @@
 -- ============================================================
 
 -- Write your query below:
+
+select product_id,
+product_name, 
+brand_id, 
+category_id,
+list_price
+from production.products
+where (list_price between 500 and 1500) and
+(model_year=2019 or model_year=2020 )
+order by list_price asc
